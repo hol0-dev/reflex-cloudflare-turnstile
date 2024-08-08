@@ -1,11 +1,11 @@
-# google-recaptcha-v2
+# reflex-cloudflare-turnstile
 
-A Reflex custom component google-recaptcha-v2.
+A component for using Cloudflare Turnstile with Reflex. fork of [masenf/reflex-google-recaptcha-v2](https://github.com/masenf/reflex-google-recaptcha-v2).
 
 ## Installation
 
 ```bash
-pip install reflex-google-recaptcha-v2
+pip install reflex-cloudflare-turnstile
 ```
 
 ## Usage
@@ -13,8 +13,8 @@ pip install reflex-google-recaptcha-v2
 Set your site key and secret key in your environment variables.
 
 ```bash
-export RECAPTCHA_SITE_KEY="your-site-key"
-export RECAPTCHA_SECRET_KEY="your-secret-key"
+export TURNSTILE_SITE_KEY="your-site-key"
+export TURNSTILE_SECRET_KEY="your-secret-key"
 ```
 
 Alternatively, you can set the keys via python functions as seen in the demo app.
@@ -24,12 +24,12 @@ Alternatively, you can set the keys via python functions as seen in the demo app
 ```python
 import reflex as rx
 
-from reflex_google_recaptcha_v2 import google_recaptcha_v2
+from reflex_cloudflare_turnstile import cloudflare_turnstile
 
 def index():
     return rx.vstack(
         ...,
-        google_recaptcha_v2(),
+        cloudflare_turnstile(),
     )
 ```
 
@@ -44,7 +44,7 @@ persists for the lifetime of the Reflex session (until the tab is closed).
 ```python
 import reflex as rx
 
-from reflex_google_recaptcha_v2 import GoogleRecaptchaV2State
+from reflex_cloudflare_turnstile import CloudflareTurnstileState
 
 
 class MyState(rx.State):
@@ -52,7 +52,7 @@ class MyState(rx.State):
 
     async def handle_submit(self, form_data):
         ...
-        recaptcha_state = await self.get_state(GoogleRecaptchaV2State)
+        recaptcha_state = await self.get_state(CloudflareTurnstileState)
         if not recaptcha_state.token_is_valid:
             self.form_error = "Invalid recaptcha. Are you a robot?"
             return
